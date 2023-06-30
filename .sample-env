@@ -1,0 +1,6 @@
+VITE_AUTH0_API_URL={{URL for your express API, i.e. http://localhost:3000 during dev}}
+VITE_AUTH0_DOMAIN={{Get from your Auth0 account, will end in "auth0.com" if you are not using a custom domain}}
+VITE_AUTH0_SPA_CLIENT_ID={{Get from your Auth0 account, this is the "Client ID" found in your single page application settings}}
+VITE_AUTH0_SPA_URL={{Base URL for this react application}}
+VITE_AUTH0_CALLBACK_URL={{Auth0 temporarily redirects here after the user authenticates, for smoother login experience}}
+VITE_AUTH0_AUDIENCE={{Get from your Auth0 account, this is the "Identifier" found in the Custom API general settings}}
