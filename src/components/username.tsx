@@ -1,7 +1,15 @@
 import { FC, FormEvent, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { updateUsername } from "../services/postService";
-import { Button, Card, Form, Row, Col, Container } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Form,
+  Row,
+  Col,
+  Container,
+  Spinner,
+} from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import handleError from "../util/error-handler";
 
@@ -11,6 +19,7 @@ const Username: FC = () => {
 
   const [username, setUsername] = useState<string>("");
   const [validated, setValidated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     const form = e.currentTarget;
@@ -18,12 +27,15 @@ const Username: FC = () => {
     setValidated(true);
     if (form.checkValidity() === true) {
       try {
+        setIsLoading(true);
         const token = await getAccessTokenSilently();
         if (user?.sub) {
           await updateUsername(user.sub, username, token);
         }
+        setIsLoading(false);
         window.location.replace(import.meta.env.VITE_AUTH0_SPA_URL); //Reload app to get updated Auth0 user object
       } catch (err) {
+        setIsLoading(false);
         navigate("/error", {
           state: {
             error: handleError(err),
@@ -57,27 +69,39 @@ const Username: FC = () => {
                   changed later.
                 </Card.Text>
                 <br />
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                  <Form.Group>
-                    <Form.Control
-                      required
-                      maxLength={20}
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Enter username"
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Please enter a username, max 20 characters.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <br />
-                  <Button type="submit">Save</Button>
-                </Form>
-                <br />
-                <Link reloadDocument to={"/"}>
-                  Keep default
-                </Link>
+                {isLoading ? (
+                  <div className="text-center">
+                    <Spinner animation="border"></Spinner>
+                  </div>
+                ) : (
+                  <>
+                    <Form
+                      noValidate
+                      validated={validated}
+                      onSubmit={handleSubmit}
+                    >
+                      <Form.Group>
+                        <Form.Control
+                          required
+                          maxLength={20}
+                          type="text"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                          placeholder="Enter username"
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          Please enter a username, max 20 characters.
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <br />
+                      <Button type="submit">Save</Button>
+                    </Form>
+                    <br />
+                    <Link reloadDocument to={"/"}>
+                      Keep default
+                    </Link>
+                  </>
+                )}
               </Card.Body>
             </Card>
           </Col>
