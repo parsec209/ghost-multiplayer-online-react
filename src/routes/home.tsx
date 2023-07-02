@@ -129,8 +129,9 @@ const Home: FC = () => {
               <div className="d-grid gap-2">
                 <Button
                   onClick={() => handleLinkBtnClick("/opponents")}
-                  variant="primary"
+                  variant="light"
                   size="lg"
+                  style={{ opacity: 0.6 }}
                 >
                   Find opponents
                 </Button>
@@ -142,6 +143,7 @@ const Home: FC = () => {
                   onClick={() => handleLinkBtnClick("/games")}
                   variant="info"
                   size="lg"
+                  style={{ opacity: 0.7 }}
                 >
                   View games
                 </Button>
