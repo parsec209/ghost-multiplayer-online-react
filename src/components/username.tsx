@@ -63,10 +63,9 @@ const Username: FC = () => {
               </Card.Header>
               <Card.Body>
                 <Card.Text>
-                  Enter a username for identifying you during gameplay and for
-                  sending you invites. You can also keep the random one assigned
-                  to you in the top navigation bar. Your username CANNOT be
-                  changed later.
+                  Enter a custom username, or keep the random default one in the
+                  top navigation bar (view it on smaller screens by clicking the
+                  hamburger icon). Your username CANNOT be changed later.
                 </Card.Text>
                 <br />
                 {isLoading ? (
@@ -98,7 +97,7 @@ const Username: FC = () => {
                     </Form>
                     <br />
                     <Link reloadDocument to={"/"}>
-                      Keep default
+                      Use default username
                     </Link>
                   </>
                 )}
