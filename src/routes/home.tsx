@@ -74,7 +74,7 @@ const Home: FC = () => {
         }}
       >
         {!user ? (
-          <>
+          <div id="home-content">
             <Row>
               <Col>
                 <div className="d-flex justify-content-center mb-3">
@@ -122,7 +122,7 @@ const Home: FC = () => {
                 </div>
               </Col>
             </Row>
-          </>
+          </div>
         ) : (
           <Row>
             <Col md={{ span: 4, offset: 4 }} className="mb-3">
