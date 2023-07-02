@@ -117,47 +117,42 @@ const Game: FC = () => {
               </Button>
             )}
             <h4 className="mb-3">Round {round + 1}</h4>
-            <div className="mb-5 p-3 d-flex justify-content-between border border-secondary">
-              <div>
-                <p>
-                  <strong>First player</strong>
-                </p>
-                <p>{game.roundTurns[round][0]}</p>
-                <h4
-                  style={{
-                    color: "red",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {game.inviteeScores.length > 0 &&
-                    game.inviterScores.length > 0 &&
-                    (game.invitee === game.roundTurns[round][0]
-                      ? game.inviteeScores[round] ||
-                        game.inviteeScores[round - 1]
-                      : game.inviterScores[round] ||
-                        game.inviterScores[round - 1])}
-                </h4>
-              </div>
-              <div>
-                <p>
-                  <strong>Second player</strong>
-                </p>
-                <p>{game.roundTurns[round][1]}</p>
-                <h4
-                  style={{
-                    color: "red",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {game.inviteeScores.length > 0 &&
-                    game.inviterScores.length > 0 &&
-                    (game.invitee === game.roundTurns[round][1]
-                      ? game.inviteeScores[round] ||
-                        game.inviteeScores[round - 1]
-                      : game.inviterScores[round] ||
-                        game.inviterScores[round - 1])}
-                </h4>
-              </div>
+            <div className="mb-5 p-3 border border-secondary">
+              <p>
+                <strong>First player: </strong>
+                {game.roundTurns[round][0]}
+              </p>
+              <h4
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                }}
+              >
+                {game.inviteeScores.length > 0 &&
+                  game.inviterScores.length > 0 &&
+                  (game.invitee === game.roundTurns[round][0]
+                    ? game.inviteeScores[round] || game.inviteeScores[round - 1]
+                    : game.inviterScores[round] ||
+                      game.inviterScores[round - 1])}
+              </h4>
+              <br />
+              <p>
+                <strong>Second player: </strong>
+                {game.roundTurns[round][1]}
+              </p>
+              <h4
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                }}
+              >
+                {game.inviteeScores.length > 0 &&
+                  game.inviterScores.length > 0 &&
+                  (game.invitee === game.roundTurns[round][1]
+                    ? game.inviteeScores[round] || game.inviteeScores[round - 1]
+                    : game.inviterScores[round] ||
+                      game.inviterScores[round - 1])}
+              </h4>
             </div>
             {game.winner !== "N/A" &&
               round === game.moves.length - 1 &&
