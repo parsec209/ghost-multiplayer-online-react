@@ -99,7 +99,7 @@ const Opponents: FC = () => {
       )
     ) {
       setAlert({
-        message: `There is already a game or challenge pending with ${opponent}`,
+        message: `There is already a game or invite pending with ${opponent}.`,
         variant: "danger",
       });
       setShow(true);
@@ -116,7 +116,7 @@ const Opponents: FC = () => {
               const updatedGames = getGamesState(games, response.updatedGame);
               setGames(updatedGames);
               setAlert({
-                message: `Challenge with ${opponent} created!`,
+                message: `You have invited ${opponent} to play a game!`,
                 variant: "success",
               });
               setShow(true);
@@ -146,7 +146,10 @@ const Opponents: FC = () => {
             onClose={() => setShow(false)}
             dismissible
           >
-            {alert.message}
+            {alert.message} View your{" "}
+            <Alert.Link as={Link} to={"/games"}>
+              games.
+            </Alert.Link>
           </Alert>
         )}
         <Button onClick={() => reloadOpponents()}>Refresh</Button>
