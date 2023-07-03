@@ -146,14 +146,19 @@ const Games: FC = () => {
   return (
     <>
       <small>
+        <i>* Swipe horizontally if needed to see full table.</i>
+      </small>
+      <br />
+      <small>
         <i>
-          * Hover column headers to <strong>sort and filter</strong> games.
+          * Hover or tap column headers to show <strong>sort and filter</strong>{" "}
+          icons.
         </i>
       </small>
       <br />
       <small>
         <i>
-          * Set game update{" "}
+          * Set your game update{" "}
           <strong>
             <Link to={"/profile"}>email notifications</Link>
           </strong>

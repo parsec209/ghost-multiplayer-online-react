@@ -187,20 +187,25 @@ const Game: FC = () => {
               </p>
             )}
             {game.moves[round] ? (
-              <div
-                style={{ whiteSpace: "nowrap" }}
-                className="p-3 mb-4 overflow-scroll"
-              >
-                {game.moves[round].split("").map((letter, i) => (
-                  <div
-                    key={i}
-                    style={{ display: "inline-block" }}
-                    className="fs-2 fw-bolder border border-secondary border-5 m-lg-2 p-lg-4 m-md-1 p-md-3 m-sm-1 p-sm-3 m-1 p-3"
-                  >
-                    {letter}
-                  </div>
-                ))}
-              </div>
+              <>
+                <small>
+                  <i>* Swipe horizontally if needed to see full word.</i>
+                </small>
+                <div
+                  style={{ whiteSpace: "nowrap" }}
+                  className="p-3 mb-4 overflow-scroll"
+                >
+                  {game.moves[round].split("").map((letter, i) => (
+                    <div
+                      key={i}
+                      style={{ display: "inline-block" }}
+                      className="fs-2 fw-bolder border border-secondary border-5 m-lg-2 p-lg-4 m-md-1 p-md-3 m-sm-1 p-sm-3 m-1 p-3"
+                    >
+                      {letter}
+                    </div>
+                  ))}
+                </div>
+              </>
             ) : (
               <h5 className="mb-3">No moves yet</h5>
             )}
