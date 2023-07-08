@@ -55,11 +55,14 @@ const Game: FC = () => {
   };
 
   const challengeWord = async (): Promise<void> => {
-    setIsLoading(true);
-    const gameToUpdate = { ...game };
-    gameToUpdate.status = "challenged";
-    gameToUpdate.turn = game.inviter === username ? game.invitee : game.inviter;
-    socket.timeout(15000).emit("gameStateServer", gameToUpdate, emitCallback);
+    if (confirm("Are you sure you want to challenge your opponent's word?")) {
+      setIsLoading(true);
+      const gameToUpdate = { ...game };
+      gameToUpdate.status = "challenged";
+      gameToUpdate.turn =
+        game.inviter === username ? game.invitee : game.inviter;
+      socket.timeout(15000).emit("gameStateServer", gameToUpdate, emitCallback);
+    }
   };
 
   const handleSubmit = async (
