@@ -1,34 +1,20 @@
-import { useEffect, useRef, FC } from "react";
+import { useEffect, useState, useRef, FC } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Row,
-  Col,
-  Container,
-  OverlayTrigger,
-  Popover,
-} from "react-bootstrap";
+import { Button, Row, Col, Container, Modal } from "react-bootstrap";
 import backgroundImg from "../assets/library-ghosts.jpg";
 import FallingTiles from "../components/falling-tiles";
 import Instructions from "../components/instructions";
 
 const letterDisplay: string[] = ["G", "H", "O", "S", "T"];
 
-const popover = (
-  <Popover>
-    <Popover.Header as="h3">Rules</Popover.Header>
-    <Popover.Body>
-      <Instructions />
-    </Popover.Body>
-  </Popover>
-);
-
 const Home: FC = () => {
   const { loginWithRedirect, user } = useAuth0();
   const navigate = useNavigate();
   const letterRefs = useRef<HTMLDivElement[]>([]);
   let areFalling: boolean = user ? false : true;
+
+  const [show, setShow] = useState<boolean>(false);
 
   const handleLinkBtnClick = (path: string): void => {
     navigate(path);
@@ -110,16 +96,23 @@ const Home: FC = () => {
               </Col>
               <Col md={{ span: 4, offset: 4 }}>
                 <div className="d-grid gap-2">
-                  <OverlayTrigger
-                    trigger="click"
-                    placement="bottom"
-                    overlay={popover}
+                  <Button
+                    variant="info"
+                    size="lg"
+                    style={{ opacity: 0.7 }}
+                    onClick={() => setShow(true)}
                   >
-                    <Button variant="info" size="lg" style={{ opacity: 0.7 }}>
-                      Game rules
-                    </Button>
-                  </OverlayTrigger>
+                    Game rules
+                  </Button>
                 </div>
+                <Modal show={show} onHide={() => setShow(false)}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Rules</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Instructions />
+                  </Modal.Body>
+                </Modal>
               </Col>
             </Row>
           </div>

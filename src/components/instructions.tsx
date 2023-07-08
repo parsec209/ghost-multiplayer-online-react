@@ -7,7 +7,6 @@ const Instructions: FC = () => {
         This is the classic word game <i>Ghost</i>, the rules can be found{" "}
         <a href="https://en.wikipedia.org/wiki/Ghost_(game)">here.</a>
       </p>
-      <br />
       <p className="mb-3">
         {" "}
         <strong>A few things to note for this site:</strong>

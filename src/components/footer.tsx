@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC, useState } from "react";
+import { Modal } from "react-bootstrap";
 import {
   MDBFooter,
   MDBContainer,
@@ -7,19 +8,11 @@ import {
   MDBIcon,
   MDBBtn,
 } from "mdb-react-ui-kit";
-import { Popover, OverlayTrigger } from "react-bootstrap";
 import Instructions from "./instructions";
 
-const popover = (
-  <Popover>
-    <Popover.Header as="h3">Rules</Popover.Header>
-    <Popover.Body>
-      <Instructions />
-    </Popover.Body>
-  </Popover>
-);
-
 const Footer: FC = () => {
+  const [show, setShow] = useState<boolean>(false);
+
   return (
     <MDBFooter bgColor="dark" className="text-center text-lg-start text-muted">
       <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
@@ -43,13 +36,23 @@ const Footer: FC = () => {
           <MDBRow className="mt-3">
             <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
-              <OverlayTrigger trigger="click" placement="top" overlay={popover}>
-                <p>
-                  <a href="#!" className="text-reset">
-                    Instructions
-                  </a>
-                </p>
-              </OverlayTrigger>
+              <p>
+                <a
+                  href="#!"
+                  className="text-reset"
+                  onClick={() => setShow(true)}
+                >
+                  Instructions
+                </a>
+              </p>
+              <Modal show={show} onHide={() => setShow(false)}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Rules</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Instructions />
+                </Modal.Body>
+              </Modal>
               <p>
                 <a
                   href="https://www.merriam-webster.com/"
