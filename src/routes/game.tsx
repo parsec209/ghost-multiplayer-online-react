@@ -4,10 +4,12 @@ import { GamesContext, GamesContextType } from "../contexts/gamesContext";
 import { socket } from "../socket";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getGamesState } from "../services/gameStateService";
+import { getGames } from "../services/postService";
+import handleError from "../util/error-handler";
 import { Button, Spinner, Form, Row, Col, Dropdown } from "react-bootstrap";
 
 const Game: FC = () => {
-  const { user } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
   const clientURL: string = import.meta.env.VITE_AUTH0_SPA_URL;
   const username: string | undefined = user && user[`${clientURL}/username`];
   const navigate = useNavigate();
@@ -36,6 +38,25 @@ const Game: FC = () => {
       : false;
 
   let currentWord: string = (game && game.moves[game.moves.length - 1]) || "";
+
+  const reload = async () => {
+    setIsLoading(true);
+    try {
+      if (username) {
+        const token = await getAccessTokenSilently();
+        const fetchedGames = await getGames(username, token);
+        setGames(fetchedGames);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setIsLoading(false);
+      navigate("/error", {
+        state: {
+          error: handleError(err),
+        },
+      });
+    }
+  };
 
   const emitCallback = (err: Error, response: EmitCallbackResponse): void => {
     if (response && response.updatedGame) {
@@ -98,6 +119,9 @@ const Game: FC = () => {
   return (
     <Row>
       <Col md={{ span: 6, offset: 3 }}>
+        <Button onClick={reload}>Refresh</Button>
+        <br />
+        <br />
         {game && (
           <div style={{ backgroundColor: "white" }} className="p-3">
             <Dropdown className="mb-3">
